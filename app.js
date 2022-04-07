@@ -1,7 +1,8 @@
-const typeButton = document.querySelector(".type")
+//DOM element grab constants
+const typeButton = document.querySelector('.type')
+const userInput = document.getElementById('my-input')
 
-//test of hiding "type answer" button when clicked to allow user input
-
-function hideTypeAnswer() {
-
-}
+    typeButton.addEventListener('click', () => {
+        typeButton.style.display = 'none'
+        userInput.style.display = 'inline'
+    })
