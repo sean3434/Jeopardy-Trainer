@@ -6,23 +6,33 @@ const skipButton = document.querySelector('.skip')
 const revealButton = document.querySelector('.reveal')
 
 // Global Variables
+const questionSet = ['A succulent can be any plant with fleshy, thick tissues adapted to store this', 'Baltimore Orioles defensive wizard Brooks Robinson won 16 straight gold these from 1960 to 1975', 'A spy who lures another into a trap, or just a wooden duck', "Chatting at your desk on Instant Messenger? Type AFK into the window to tell them you're away from this", "You might play 301, 501 or 1001 when you're playing when you're having fun playing this barroom favorite", 'This syndrome is also called terror-bonding or traumatic bonding', "It's the type of keyboard named for the succession of 6 letters found near the upper-left corner", "It's not cloudbursts in the skull, but shared problem solving in which everyone contributes ideas", 'If you like it hot, use this brand of sauce made with red peppers, vinegar & salt mined on Avery Island', 'At 16, Tracy Austin beat Chris Evert to win this tennis tournament at Flushing Meadows', 'A type of treeless plain, or the oldest city in Georgia', 'On the night of April 18, 1775 this man rode to Lexington to warn Hancock to get out of town', 'An opening dice throw of 2, 3 or 12 is a loser in this game', 'This unit of measure is equal to 2 pints', 'The olfactory nerve is the nerve of this sense']
+const answerSet = ['water', 'gloves', 'decoy', 'keyboard', 'darts', 'Stockholm', 'QWERTY', 'brainstorming', 'Tabasco', 'U.S. Open', 'Savannah', 'Paul Revere', 'craps', 'quart', 'smell']
 let currentQuestion = null
 let currentAnswer = null
 let questionNumber = 1
-const questionSet = ['A succulent can be any plant with fleshy, thick tissues adapted to store this', 'Baltimore Orioles defensive wizard Brooks Robinson won 16 straight gold these from 1960 to 1975', 'A spy who lures another into a trap, or just a wooden duck', "Chatting at your desk on Instant Messenger? Type AFK into the window to tell them you're away from this", "You might play 301, 501 or 1001 when you're playing when you're having fun playing this barroom favorite", 'This syndrome is also called terror-bonding or traumatic bonding', "It's the type of keyboard named for the succession of 6 letters found near the upper-left corner", "It's not cloudbursts in the skull, but shared problem solving in which everyone contributes ideas", 'If you like it hot, use this brand of sauce made with red peppers, vinegar & salt mined on Avery Island', 'At 16, Tracy Austin beat Chris Evert to win this tennis tournament at Flushing Meadows', 'A type of treeless plain, or the oldest city in Georgia', 'On the night of April 18, 1775 this man rode to Lexington to warn Hancock to get out of town', 'An opening dice throw of 2, 3 or 12 is a loser in this game', 'This unit of measure is equal to 2 pints', 'The olfactory nerve is the nerve of this sense']
-const answerSet = ['water', 'gloves', 'decoy', 'keyboard', 'darts', 'Stockholm', 'QWERTY', 'brainstorming', 'Tabasco', 'U.S. Open', 'Savannah', 'Paul Revere', 'craps', 'quart', 'smell']
-const val = Math.floor(Math.random() * questionSet.length);
+let NewQuestionId = 0
 
-//from MDN Math.random documentation to get random integer from 0-14 for questin/answer index
-function getRandomQuestion() {
-    currentQuestion = questionSet[val]
-    currentAnswer = answerSet[val]
+// Get Random Number 0-14 (For question/answer index)
+function newQuestion() {
+    newNum = Math.floor(Math.random() * questionSet.length)
+    NewQuestionId = newNum
+    currentQuestion = questionSet[NewQuestionId]
+    currentAnswer = answerSet[NewQuestionId]
 }
 
-getRandomQuestion(15)
+newQuestion()
 console.log(currentQuestion)
 console.log(currentAnswer)
 
+//Show next question and increment question number every time skip/next question is clicked
+skipButton.addEventListener('click', () => {
+    newQuestion()
+    questionNumber++
+    console.log(questionNumber)
+    console.log(NewQuestionId)
+    console.log(currentQuestion)
+})
 
 // On click of the "type answer" button, text box and submit answer button appear
 typeButton.addEventListener('click', () => {
@@ -43,10 +53,3 @@ submitButton.addEventListener('click', () => {
 })
 
  
-//Show next question and increment question number every time skip/next question is clicked
-function nextQuestion() {
-    skipButton.addEventListener('click', () => {
-        
-        questionNumber++
-    })
-}
