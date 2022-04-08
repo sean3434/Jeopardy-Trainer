@@ -29,7 +29,7 @@ function newQuestion() {
 }
 
 console.log(currentQuestion)
-// console.log(currentAnswer)
+console.log(currentAnswer)
 
 //Show next question and increment question number every time skip/next question is clicked
 skipButton.addEventListener('click', () => {
@@ -39,9 +39,7 @@ skipButton.addEventListener('click', () => {
     submitButton.innerHTML = 'Submit Answer'
     skipButton.innerHTML = 'Skip Question'
     revealButton.style.display = 'inline'
-
-    console.log(questionNumber)
-    console.log(newQuestionId)
+    revealButton.innerHTML = 'Reveal Answer'
 })
 
 // On click of the "type answer" button, text box and submit answer button appear
@@ -60,8 +58,12 @@ submitButton.addEventListener('click', () => {
     }else {submitButton.innerHTML = 'Incorrect :('
             revealButton.style.display = 'inline'
             skipButton.innerHTML = 'Skip Question'
-
 }
 })
 
+// Reveal answer when clicked, change skip to next, disable eventlisteners except next question
+revealButton.addEventListener('click', () => {
+    revealButton.innerHTML = currentAnswer
+    skipButton.innerHTML = 'Next Question'
+})
  
