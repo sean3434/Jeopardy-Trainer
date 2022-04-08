@@ -13,6 +13,7 @@ let currentQuestion = null
 let currentAnswer = null
 let questionNumber = 1
 let newQuestionId = 0
+let revealPress = false
 
 // Initialize
 newQuestion()
@@ -63,6 +64,7 @@ submitButton.addEventListener('click', () => {
 
 // Reveal answer when clicked, change skip to next, disable eventlisteners except next question
 revealButton.addEventListener('click', () => {
+    revealPress = true
     revealButton.innerHTML = currentAnswer
     skipButton.innerHTML = 'Next Question'
 })
