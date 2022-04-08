@@ -12,7 +12,7 @@ const answerSet = ['water', 'gloves', 'decoy', 'keyboard', 'darts', 'Stockholm',
 let currentQuestion = null
 let currentAnswer = null
 let questionNumber = 1
-let NewQuestionId = 0
+let newQuestionId = 0
 
 // Initialize
 newQuestion()
@@ -20,24 +20,28 @@ newQuestion()
 // Display Questions
 questions.innerHTML = currentQuestion
 
-// Get Random Number 0-14 (For question/answer index)
+// Get Random Number 0-14 (For question/answer index), assign number to newQuestionId, use that to change to new question and answer
 function newQuestion() {
     newNum = Math.floor(Math.random() * questionSet.length)
-    NewQuestionId = newNum
-    currentQuestion = questionSet[NewQuestionId]
-    currentAnswer = answerSet[NewQuestionId]
+    newQuestionId = newNum
+    currentQuestion = questionSet[newQuestionId]
+    currentAnswer = answerSet[newQuestionId]
 }
 
 console.log(currentQuestion)
-console.log(currentAnswer)
+// console.log(currentAnswer)
 
 //Show next question and increment question number every time skip/next question is clicked
 skipButton.addEventListener('click', () => {
     newQuestion()
     questionNumber++
+    questions.innerHTML = currentQuestion
+    submitButton.innerHTML = 'Submit Answer'
+    skipButton.innerHTML = 'Skip Question'
+    revealButton.style.display = 'inline'
+
     console.log(questionNumber)
-    console.log(NewQuestionId)
-    console.log(currentQuestion)
+    console.log(newQuestionId)
 })
 
 // On click of the "type answer" button, text box and submit answer button appear
@@ -49,12 +53,14 @@ typeButton.addEventListener('click', () => {
 // Logic for submitting answer, checking if correct, taking away reveal answer button if correct and changing text of next question to skip question
 submitButton.addEventListener('click', () => {
     // if(userInput.value === 'hi') {
-        if(userInput.value === answerSet[val]) {
+        if(userInput.value === currentAnswer) {
         submitButton.innerHTML = 'Correct!'
         skipButton.innerHTML = 'Next Question'
         revealButton.style.display = 'none'
     }else {submitButton.innerHTML = 'Incorrect :('
             revealButton.style.display = 'inline'
+            skipButton.innerHTML = 'Skip Question'
+
 }
 })
 
