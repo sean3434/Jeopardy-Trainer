@@ -27,6 +27,7 @@ function newQuestion() {
     newQuestionId = newNum
     currentQuestion = questionSet[newQuestionId]
     currentAnswer = answerSet[newQuestionId]
+    rightAnswer = currentAnswer.toLowerCase()
 }
 
 console.log(currentQuestion)
@@ -38,9 +39,12 @@ skipButton.addEventListener('click', () => {
     questionNumber++
     questions.innerHTML = currentQuestion
     submitButton.innerHTML = 'Submit Answer'
+    submitButton.style.display = 'inline'
     skipButton.innerHTML = 'Skip Question'
     revealButton.style.display = 'inline'
     revealButton.innerHTML = 'Reveal Answer'
+    userInput.style.display = 'inline'
+    userInput.value = ''
 })
 
 // On click of the "type answer" button, text box and submit answer button appear
@@ -51,8 +55,7 @@ typeButton.addEventListener('click', () => {
 })
 // Logic for submitting answer, checking if correct, taking away reveal answer button if correct and changing text of next question to skip question
 submitButton.addEventListener('click', () => {
-    // if(userInput.value === 'hi') {
-        if(userInput.value === currentAnswer) {
+        if(userInput.value.toLowerCase() === rightAnswer) {
         submitButton.innerHTML = 'Correct!'
         skipButton.innerHTML = 'Next Question'
         revealButton.style.display = 'none'
@@ -64,8 +67,12 @@ submitButton.addEventListener('click', () => {
 
 // Reveal answer when clicked, change skip to next, disable eventlisteners except next question
 revealButton.addEventListener('click', () => {
-    revealPress = true
+    // revealPress = true
     revealButton.innerHTML = currentAnswer
     skipButton.innerHTML = 'Next Question'
+    submitButton.style.display = 'none'
+    userInput.style.display = 'none'
+    typeButton.style.display = 'none'
+
 })
  
