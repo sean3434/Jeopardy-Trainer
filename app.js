@@ -49,7 +49,6 @@ skipButton.addEventListener('click', () => {
     userInput.style.display = 'inline'
     userInput.value = ''
     typeButton.style.display = 'none'
-    questionCount++
     stats.innerHTML = `${correctCount}/${questionCount}`
     skipCount++
     skip.innerHTML = `Skipped Questions: ${skipCount}`
@@ -68,12 +67,16 @@ submitButton.addEventListener('click', () => {
         skipButton.innerHTML = 'Next Question'
         revealButton.style.display = 'none'
         correctCount++
+        questionCount++
         skipCount--
         stats.innerHTML = `${correctCount}/${questionCount} CORRECT!!`
-    }else {submitButton.innerHTML = 'Incorrect :('
+        }else {
+            submitButton.style.diplay = 'none'
             revealButton.style.display = 'inline'
             skipButton.innerHTML = 'Next Question'
-}
+            stats.innerHTML = `${correctCount}/${questionCount} Incorrect!!`
+        }
+
 })
 
 // Reveal answer when clicked, change skip to next, disable eventlisteners except next question
