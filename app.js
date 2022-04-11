@@ -14,30 +14,26 @@ const answerSet = ['water', 'gloves', 'decoy', 'keyboard', 'darts', 'Stockholm',
 let currentQuestion = null
 let currentAnswer = null
 let newQuestionId = 0
-let questionCount = 1
+let questionCount = 0
 let correctCount = 0
 let skipCount = 0
-// let revealPress = false
 
-// Initialize
+// Initialize: Fetch random question, display random question, correct/total, and skipped questions
 newQuestion()
-
-// Display Questions
 questions.innerHTML = currentQuestion
+stats.innerHTML = `${correctCount}/${questionCount}`
+skip.innerHTML = `Skipped Questions: ${skipCount}`
 
 // Get Random Number 0-14 (For question/answer index), assign number to newQuestionId, use that to change to new question and answer, remove case-sensitivity
 function newQuestion() {
-    newNum = Math.floor(Math.random() * questionSet.length)
+    let newNum = Math.floor(Math.random() * questionSet.length)
     newQuestionId = newNum
     currentQuestion = questionSet[newQuestionId]
     currentAnswer = answerSet[newQuestionId]
     rightAnswer = currentAnswer.toLowerCase()
 }
 
-console.log(currentQuestion)
-console.log(currentAnswer)
-
-//Show next question and increment question number every time skip/next question is clicked
+// Press skip to fetch + display random question, reset all buttons + user input, increment + display skip count
 skipButton.addEventListener('click', () => {
     newQuestion()
     questions.innerHTML = currentQuestion
@@ -49,43 +45,43 @@ skipButton.addEventListener('click', () => {
     userInput.style.display = 'inline'
     userInput.value = ''
     typeButton.style.display = 'none'
-    stats.innerHTML = `${correctCount}/${questionCount}`
     skipCount++
     skip.innerHTML = `Skipped Questions: ${skipCount}`
 })
 
-// On click of the "type answer" button, text box and submit answer button appear
+// Press "Type Answer" for user input field and submit answer button to appear
 typeButton.addEventListener('click', () => {
     typeButton.style.display = 'none'
     userInput.style.display = 'inline'
     submitButton.style.display = 'inline'
 })
-// Logic for submitting answer, checking if correct, taking away reveal answer button if correct and changing text of next question to skip question
+
+/* Press "Submit Answer" to check if correct, remove both "Submit Answer" + "Reveal Answer" button if correct + changes text of "Skip Question" to "Next Question", increment correct count and total question count, then display
+   If incorrect, same behavior as correct answer except "Reveal Answer" button stays and correct count does not increment */
 submitButton.addEventListener('click', () => {
-        if(userInput.value.toLowerCase() === rightAnswer) {
+    if (userInput.value.toLowerCase() === rightAnswer) {
         submitButton.style.display = 'none'
-        skipButton.innerHTML = 'Next Question'
         revealButton.style.display = 'none'
+        skipButton.innerHTML = 'Next Question'
         correctCount++
         questionCount++
         skipCount--
         stats.innerHTML = `${correctCount}/${questionCount} CORRECT!!`
-        }else {
-            submitButton.style.diplay = 'none'
-            revealButton.style.display = 'inline'
-            skipButton.innerHTML = 'Next Question'
-            stats.innerHTML = `${correctCount}/${questionCount} Incorrect!!`
-        }
-
+    }else {
+        submitButton.style.display = 'none'
+        revealButton.style.display = 'inline'
+        skipButton.innerHTML = 'Next Question'
+        questionCount++
+        skipCount--
+        stats.innerHTML = `${correctCount}/${questionCount} Incorrect!!`
+    }
 })
 
-// Reveal answer when clicked, change skip to next, disable eventlisteners except next question
+// Press "Reveal Answer" button to change text to current correct answer,change text of "Skip Question" to "Next Question", and remove all other buttons + user input field
 revealButton.addEventListener('click', () => {
-    // revealPress = true
     revealButton.innerHTML = currentAnswer
     skipButton.innerHTML = 'Next Question'
     submitButton.style.display = 'none'
     userInput.style.display = 'none'
     typeButton.style.display = 'none'
 })
-stats.innerHTML = `${correctCount}/${questionCount}`
