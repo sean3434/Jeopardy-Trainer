@@ -1,3 +1,21 @@
+// 
+// fetch('./api/some.json')
+//     .then(
+//         function(response) {
+//             if (response.status !== 200) {
+//                 console.log('Looks liek there was a problem');
+//                 return;
+//             }
+
+//             response.json().then(function(data) {
+//                 console.log(data);
+//             });
+//         }
+//     )
+//     .catch(function(err) {
+//         console.log('Fetch Error :-S', err)
+//     });
+
 // DOM element grab constants
 const typeButton = document.querySelector('.type')
 const userInput = document.getElementById('my-input')
@@ -33,7 +51,7 @@ function newQuestion() {
     rightAnswer = currentAnswer.toLowerCase()
 }
 
-// Press skip to fetch + display random question, reset all buttons + user input, increment + display skip count
+// Press skip to fetch + display random question, reset all buttons + user input, remove "CORRECT!!" or "Incorrect!!" text, increment + display skip count
 skipButton.addEventListener('click', () => {
     newQuestion()
     questions.innerHTML = currentQuestion
@@ -46,6 +64,7 @@ skipButton.addEventListener('click', () => {
     userInput.value = ''
     typeButton.style.display = 'none'
     skipCount++
+    stats.innerHTML = `${correctCount}/${questionCount}`
     skip.innerHTML = `Skipped Questions: ${skipCount}`
 })
 
