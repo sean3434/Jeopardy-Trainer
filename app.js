@@ -1,9 +1,9 @@
-// 
+// FROM GOOGLE basic fetch code
 // fetch('./api/some.json')
 //     .then(
 //         function(response) {
 //             if (response.status !== 200) {
-//                 console.log('Looks liek there was a problem');
+//                 console.log('Looks like there was a problem. Status Code: ' + response.status);
 //                 return;
 //             }
 
@@ -16,7 +16,32 @@
 //         console.log('Fetch Error :-S', err)
 //     });
 
-// DOM element grab constants
+let question = null
+let answer = null
+
+// This guy showed where to put the url, and get the JSON data to display. I did not know how to do either https://www.youtube.com/watch?v=ych1L9J-bDY&t=1453s
+// fetch('http://jservice.io/api/random')
+//     .then(
+//         function(response) {
+//             if (response.status !== 200) {
+//                 console.log('Looks like there was a problem. Status Code: ' + response.status);
+//                 return;
+//             }
+
+//             response.json().then(function(data) {
+//                 question = data[0].question;
+//                 answer = data[0].answer
+//                 console.log(data);
+//                 console.log(question)
+//                 console.log(answer)
+//             });
+//         }
+//     )
+//     .catch(function(err) {
+//         console.log('Fetch Error :-S', err)
+//     });
+
+    // DOM element grab constants
 const typeButton = document.querySelector('.type')
 const userInput = document.getElementById('my-input')
 const submitButton = document.querySelector('.submit')
@@ -46,9 +71,34 @@ skip.innerHTML = `Skipped Questions: ${skipCount}`
 function newQuestion() {
     let newNum = Math.floor(Math.random() * questionSet.length)
     newQuestionId = newNum
-    currentQuestion = questionSet[newQuestionId]
-    currentAnswer = answerSet[newQuestionId]
-    rightAnswer = currentAnswer.toLowerCase()
+    // currentQuestion = questionSet[newQuestionId]
+    // currentAnswer = answerSet[newQuestionId]
+    fetch('http://jservice.io/api/random')
+    .then(
+        function(response) {
+            if (response.status !== 200) {
+                console.log('Looks like there was a problem. Status Code: ' + response.status);
+                return;
+            }
+
+            response.json().then(function(data) {
+                question = data[0].question;
+                answer = data[0].answer
+                currentQuestion = question
+                currentAnswer = answer
+                rightAnswer = currentAnswer.toLowerCase()
+                questions.innerHTML = currentQuestion
+                console.log(question)
+                console.log(answer)
+            });
+        }
+    )
+    .catch(function(err) {
+        console.log('Fetch Error :-S', err)
+    });
+    // currentQuestion = question
+    // currentAnswer = answer
+    // rightAnswer = currentAnswer.toLowerCase()
 }
 
 // Press skip to fetch + display random question, reset all buttons + user input, remove "CORRECT!!" or "Incorrect!!" text, increment + display skip count
