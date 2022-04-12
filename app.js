@@ -1,44 +1,4 @@
-// FROM GOOGLE basic fetch code
-// fetch('./api/some.json')
-//     .then(
-//         function(response) {
-//             if (response.status !== 200) {
-//                 console.log('Looks like there was a problem. Status Code: ' + response.status);
-//                 return;
-//             }
-
-//             response.json().then(function(data) {
-//                 console.log(data);
-//             });
-//         }
-//     )
-//     .catch(function(err) {
-//         console.log('Fetch Error :-S', err)
-//     });
-
-// This guy showed where to put the url and get the JSON data to display. I did not know how to do either https://www.youtube.com/watch?v=ych1L9J-bDY&t=1453s
-// fetch('http://jservice.io/api/random')
-//     .then(
-//         function(response) {
-//             if (response.status !== 200) {
-//                 console.log('Looks like there was a problem. Status Code: ' + response.status);
-//                 return;
-//             }
-
-//             response.json().then(function(data) {
-//                 question = data[0].question;
-//                 answer = data[0].answer
-//                 console.log(data);
-//                 console.log(question)
-//                 console.log(answer)
-//             });
-//         }
-//     )
-//     .catch(function(err) {
-//         console.log('Fetch Error :-S', err)
-//     });
-
-    // DOM element grab constants
+// DOM element grab constants
 const typeButton = document.querySelector('.type')
 const userInput = document.getElementById('my-input')
 const submitButton = document.querySelector('.submit')
@@ -48,13 +8,14 @@ const questions = document.querySelector('.questions')
 const stats = document.querySelector('.stats')
 const skip = document.querySelector('.skipcount')
 const statbox = document.querySelector('.statbox')
+const getCategory = document.querySelector('.category')
 
-let question = null
-let answer = null
-userInput.style.display ='none'
 // Global Variables
 const questionSet = ['A succulent can be any plant with fleshy, thick tissues adapted to store this', 'Baltimore Orioles defensive wizard Brooks Robinson won 16 straight gold these from 1960 to 1975', 'A spy who lures another into a trap, or just a wooden duck', "Chatting at your desk on Instant Messenger? Type AFK into the window to tell them you're away from this", "You might play 301, 501 or 1001 when you're playing when you're having fun playing this barroom favorite", 'This syndrome is also called terror-bonding or traumatic bonding', "It's the type of keyboard named for the succession of 6 letters found near the upper-left corner", "It's not cloudbursts in the skull, but shared problem solving in which everyone contributes ideas", 'If you like it hot, use this brand of sauce made with red peppers, vinegar & salt mined on Avery Island', 'At 16, Tracy Austin beat Chris Evert to win this tennis tournament at Flushing Meadows', 'A type of treeless plain, or the oldest city in Georgia', 'On the night of April 18, 1775 this man rode to Lexington to warn Hancock to get out of town', 'An opening dice throw of 2, 3 or 12 is a loser in this game', 'This unit of measure is equal to 2 pints', 'The olfactory nerve is the nerve of this sense']
 const answerSet = ['water', 'gloves', 'decoy', 'keyboard', 'darts', 'Stockholm', 'QWERTY', 'brainstorming', 'Tabasco', 'U.S. Open', 'Savannah', 'Paul Revere', 'craps', 'quart', 'smell']
+let category = null
+let question = null
+let answer = null
 let currentQuestion = null
 let currentAnswer = null
 let newQuestionId = null
@@ -68,13 +29,14 @@ questions.innerHTML = currentQuestion
 stats.innerHTML = `${correctCount}/${questionCount}`
 skip.innerHTML = `Skipped Questions: ${skipCount}`
 
-// Get Random Number 0-14 (For question/answer index), assign number to newQuestionId, use that to change to new question and answer, remove case-sensitivity
+// IF NOT USING API: Get Random Number 0-14 (For question/answer index), assign number to newQuestionId, use that to change to new question and answer, remove case-sensitivity
+// Otherwise, uses fetch request to pull random category, question, & answer from jservice/random API JSON data
 function newQuestion() {
-    let newNum = Math.floor(Math.random() * questionSet.length)
-    newQuestionId = newNum
+    // newQuestionId = Math.floor(Math.random() * questionSet.length)
     // currentQuestion = questionSet[newQuestionId]
     // currentAnswer = answerSet[newQuestionId]
-    fetch('http://jservice.io/api/random')
+    // rightAnswer = currentAnswer.toLowerCase()
+    fetch('https://jservice.io/api/random')
     .then(
         function(response) {
             if (response.status !== 200) {
@@ -83,23 +45,23 @@ function newQuestion() {
             }
 
             response.json().then(function(data) {
+                category = data[0].category.title
                 question = data[0].question;
                 answer = data[0].answer
                 currentQuestion = question
                 currentAnswer = answer
                 rightAnswer = currentAnswer.toLowerCase()
+                getCategory.innerHTML = `Question Category: ${category}`
                 questions.innerHTML = currentQuestion
                 console.log(question)
                 console.log(answer)
+                console.log(data)
             });
         }
     )
     .catch(function(err) {
         console.log('Fetch Error :-S', err)
     });
-    // currentQuestion = question
-    // currentAnswer = answer
-    // rightAnswer = currentAnswer.toLowerCase()
 }
 
 // Press skip to fetch + display random question, reset all buttons + user input, remove "CORRECT!!" or "Incorrect!!" text, increment + display skip count
@@ -115,7 +77,6 @@ skipButton.addEventListener('click', () => {
     userInput.value = ''
     typeButton.style.display = 'none'
     skipCount++
-    stats.innerHTML = `${correctCount}/${questionCount}`
     skip.innerHTML = `Skipped Questions: ${skipCount}`
     statbox.classList.remove('right', 'wrong')
 })
@@ -127,8 +88,8 @@ typeButton.addEventListener('click', () => {
     submitButton.style.display = 'inline'
 })
 
-/* Press "Submit Answer" to check if correct, remove both "Submit Answer" + "Reveal Answer" button if correct + changes text of "Skip Question" to "Next Question", increment correct count and total question count, then display
-   If incorrect, same behavior as correct answer except "Reveal Answer" button stays and correct count does not increment */
+/* Press "Submit Answer" to check if correct, remove both "Submit Answer" + "Reveal Answer" button if correct + changes text of "Skip Question" to "Next Question", increment correct count and total question count,decrement skipcount, turn statbox green, display new correct out of total count and CORRECT!!
+   If incorrect, same behavior as correct answer except "Reveal Answer" button stays, incorrect count increments instead of correct count, the statbox turns red and displays Incorrect!!*/
 submitButton.addEventListener('click', () => {
     if (userInput.value.toLowerCase() === rightAnswer) {
         submitButton.style.display = 'none'
