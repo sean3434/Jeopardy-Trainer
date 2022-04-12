@@ -16,10 +16,7 @@
 //         console.log('Fetch Error :-S', err)
 //     });
 
-let question = null
-let answer = null
-
-// This guy showed where to put the url, and get the JSON data to display. I did not know how to do either https://www.youtube.com/watch?v=ych1L9J-bDY&t=1453s
+// This guy showed where to put the url and get the JSON data to display. I did not know how to do either https://www.youtube.com/watch?v=ych1L9J-bDY&t=1453s
 // fetch('http://jservice.io/api/random')
 //     .then(
 //         function(response) {
@@ -51,12 +48,15 @@ const questions = document.querySelector('.questions')
 const stats = document.querySelector('.stats')
 const skip = document.querySelector('.skipcount')
 
+let question = null
+let answer = null
+userInput.style.display ='none'
 // Global Variables
 const questionSet = ['A succulent can be any plant with fleshy, thick tissues adapted to store this', 'Baltimore Orioles defensive wizard Brooks Robinson won 16 straight gold these from 1960 to 1975', 'A spy who lures another into a trap, or just a wooden duck', "Chatting at your desk on Instant Messenger? Type AFK into the window to tell them you're away from this", "You might play 301, 501 or 1001 when you're playing when you're having fun playing this barroom favorite", 'This syndrome is also called terror-bonding or traumatic bonding', "It's the type of keyboard named for the succession of 6 letters found near the upper-left corner", "It's not cloudbursts in the skull, but shared problem solving in which everyone contributes ideas", 'If you like it hot, use this brand of sauce made with red peppers, vinegar & salt mined on Avery Island', 'At 16, Tracy Austin beat Chris Evert to win this tennis tournament at Flushing Meadows', 'A type of treeless plain, or the oldest city in Georgia', 'On the night of April 18, 1775 this man rode to Lexington to warn Hancock to get out of town', 'An opening dice throw of 2, 3 or 12 is a loser in this game', 'This unit of measure is equal to 2 pints', 'The olfactory nerve is the nerve of this sense']
 const answerSet = ['water', 'gloves', 'decoy', 'keyboard', 'darts', 'Stockholm', 'QWERTY', 'brainstorming', 'Tabasco', 'U.S. Open', 'Savannah', 'Paul Revere', 'craps', 'quart', 'smell']
 let currentQuestion = null
 let currentAnswer = null
-let newQuestionId = 0
+let newQuestionId = null
 let questionCount = 0
 let correctCount = 0
 let skipCount = 0
