@@ -64,7 +64,7 @@ function newQuestion() {
     });
 }
 
-// Press skip to fetch + display random question, reset all buttons + user input, remove "CORRECT!!" or "Incorrect!!" text, increment + display skip count
+// Press skip to fetch + display random question, reset all buttons + user input, remove "CORRECT!!" or "Incorrect!!" text, increment + display skip count, and remove green/red from statbox
 skipButton.addEventListener('click', () => {
     newQuestion()
     questions.innerHTML = currentQuestion
@@ -77,6 +77,7 @@ skipButton.addEventListener('click', () => {
     userInput.value = ''
     typeButton.style.display = 'none'
     skipCount++
+    stats.innerHTML = `${correctCount}/${questionCount}`
     skip.innerHTML = `Skipped Questions: ${skipCount}`
     statbox.classList.remove('right', 'wrong')
 })
