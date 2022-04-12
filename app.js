@@ -47,6 +47,7 @@ const revealButton = document.querySelector('.reveal')
 const questions = document.querySelector('.questions')
 const stats = document.querySelector('.stats')
 const skip = document.querySelector('.skipcount')
+const statbox = document.querySelector('.statbox')
 
 let question = null
 let answer = null
@@ -116,6 +117,7 @@ skipButton.addEventListener('click', () => {
     skipCount++
     stats.innerHTML = `${correctCount}/${questionCount}`
     skip.innerHTML = `Skipped Questions: ${skipCount}`
+    statbox.classList.remove('right', 'wrong')
 })
 
 // Press "Type Answer" for user input field and submit answer button to appear
@@ -135,6 +137,7 @@ submitButton.addEventListener('click', () => {
         correctCount++
         questionCount++
         skipCount--
+        statbox.classList.add('right')
         stats.innerHTML = `${correctCount}/${questionCount} CORRECT!!`
     }else {
         submitButton.style.display = 'none'
@@ -143,6 +146,7 @@ submitButton.addEventListener('click', () => {
         questionCount++
         skipCount--
         stats.innerHTML = `${correctCount}/${questionCount} Incorrect!!`
+        statbox.classList.add('wrong')
     }
 })
 

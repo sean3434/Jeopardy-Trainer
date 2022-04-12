@@ -1,29 +1,44 @@
 body {
-  background-image: linear-gradient(to bottom, #2c698d, #71c7f2);
+  background-image: linear-gradient(to right, #c6ffdd80, #fbd78680, #f7797d80);
+  background-color: white;
   font-family: Arial, Helvetica, sans-serif;
   height: 100%;
   margin: 0;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   text-shadow: 1px 3px 2px rgba(0,0,0,0.2);
-}
-
-html {
-    height: 100%;
+  color: #272643
 }
 
 .container {
   padding-top: 5%;
   text-align: center;
-  color: white
+  color: #272643
+}
+
+h3 {
+  background-image: linear-gradient(to right, #c6ffdd80, #fbd78680, #f7797d80);
+  text-align: left;
+  max-width: 50%;
+  padding: 10px 16px;
+  margin: 40px 25% 50px 25%;
+  border: 4px #272643;
+  /* background: #bae8e8; */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  box-shadow:
+      0 1px 1px hsl(0deg 0% 0% / 0.075),
+      0 2px 2px hsl(0deg 0% 0% / 0.075),
+      0 4px 4px hsl(0deg 0% 0% / 0.075),
+      0 8px 8px hsl(0deg 0% 0% / 0.075),
+      0 16px 16px hsl(0deg 0% 0% / 0.075)
+    ;
 }
 
 button {
   border: 2px solid #272643;
-  background: #bae8e8;
-  font-size: 140%;
+  border-radius: 200px;
+  background: #b0f4c450;
+  font-size: 160%;
   padding: 10px 16px;
-  margin: 25px 3px 5px 0px;
+  margin: 0px 3px 50px 0px;
   color: #272643;
   font-weight: 300;
   transition: background-color 0.2s ease-in-out;
@@ -39,14 +54,43 @@ button {
 
 button:hover {
   cursor: pointer;
-  background-color: rgb(255, 255, 255);
-  color: black;
+  background-color: #272643;
+  color: white;
 }
 
 h1 {
   font-size: 400%;
   text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 }
+
+.statbox {
+  background-color: rgba(255, 255, 255, 0.501);
+  text-align: center;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 25% 0px 25%;
+  border: 2px solid #272643;
+  border-radius: 8px;
+  transition: background-color 0.2s ease-in-out;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  box-shadow:
+      0 1px 1px hsl(0deg 0% 0% / 0.075),
+      0 2px 2px hsl(0deg 0% 0% / 0.075),
+      0 4px 4px hsl(0deg 0% 0% / 0.075),
+      0 8px 8px hsl(0deg 0% 0% / 0.075),
+      0 16px 16px hsl(0deg 0% 0% / 0.075)
+    ;
+}
+
+.right {
+  background-color: rgba(127, 255, 212, 0.501)
+}
+
+.wrong {
+  background-color: rgba(255, 127, 127, 0.501)
+
+}
+
+.questions
 
 .submit {
   display: none
@@ -55,3 +99,7 @@ h1 {
 #my-input {
     display: none
 }
+
+/* https://www.joshwcomeau.com/css/designing-shadows/ for box shadows
+   https://codepen.io/thehelpfultipper/pen/KKZBMgm for hover effects on buttons
+*/
